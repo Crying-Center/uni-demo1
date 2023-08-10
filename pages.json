@@ -1,33 +1,67 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+		    "path" : "pages/demo4/demo4",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "demo4",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/demo3/demo3",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "demo3",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/demo2/demo2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "demo2测试",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/demo/demo",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "vue demo",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "zjh-uniApp"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
 		    "path" : "pages/list/list",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "新闻列表",
+		        "navigationBarTitleText": "新闻",
 				"navigationBarBackgroundColor": "#72a06e",
 				"navigationBarTextStyle": "white",
 		        "enablePullDownRefresh": false
 		    }
 		}
-		
-		
-		
         ,{
             "path" : "pages/about/about",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "关于",
                 "enablePullDownRefresh": false
             }
             
         }
+
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -35,6 +69,30 @@
 		"navigationBarBackgroundColor": "#72a06e",
 		"backgroundColor": "#F8F8F8"
 	},
-	"uniIdRouter": {}
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#333",
+		"selectedColor": "#282C35",
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/tabbar/home.png",
+				"selectedIconPath": "static/images/tabbar/home_active.png"
+			},
+			{
+				"text": "新闻",
+				"pagePath": "pages/list/list",
+				"iconPath": "static/images/tabbar/news.png",
+				"selectedIconPath": "static/images/tabbar/news_active.png"
+			},
+			{
+				"text": "关于",
+				"pagePath": "pages/about/about",
+				"iconPath": "static/images/tabbar/about.png",
+				"selectedIconPath": "static/images/tabbar/about_active.png"
+			}
+		]
+	}
 }
  

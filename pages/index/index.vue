@@ -45,13 +45,13 @@
 		<button size="mini">提交</button>
 		<button size="mini" type="primary">提交</button>
 		<button size="mini" type="warn">提交</button>
-		<button size="mini" type="warn"><navigator url="../about/about" open-type="redirect">关于我们</navigator></button>
+		<button size="mini" type="warn"><navigator url="../about/about" open-type="reLaunch">关于我们</navigator></button>
 		<button size="mini" type="warn" plain loading>提交</button>
 		<input password/>
 		
 		<navigator url="../list/list">新闻列表</navigator>
 		
-		<navigator url="../about/about" open-type="redirect">关于我们</navigator> <!-- open-type：redirect会关闭当前页，使打开的页面没有返回按钮 -->
+		<navigator url="../about/about" open-type="reLaunch">关于我们</navigator> <!-- open-type：redirect会关闭当前页，使打开的页面没有返回按钮 -->
 		
 	</view>
 </template>
