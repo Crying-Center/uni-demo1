@@ -12,8 +12,8 @@ DEFAULT_IP_START="21"
 DEFAULT_WIFI_PASS="password"
 DEFAULT_JOIN_LAN="y"
 DEFAULT_BAND="1"
-DEFAULT_CREATE_PASSWALL="n"
-DEFAULT_SHUNT_REMARK="分流规则"
+DEFAULT_CREATE_PASSWALL="y"
+DEFAULT_SHUNT_REMARK="tk"
 
 # 检测可用无线设备
 RADIO_2G=""
@@ -48,7 +48,7 @@ wifi_pass=${wifi_pass:-$DEFAULT_WIFI_PASS}
 read -p "请输入起始IP的第三段 [$DEFAULT_IP_START]: " ip_start
 ip_start=${ip_start:-$DEFAULT_IP_START}
 
-read -p "是否加入LAN防火墙区域? [Y/n]: " join_lan
+read -p "是否加入LAN防火墙区域? [$DEFAULT_JOIN_LAN]: " join_lan
 join_lan=${join_lan:-$DEFAULT_JOIN_LAN}
 
 # 频段选择
