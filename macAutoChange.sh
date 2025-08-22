@@ -72,7 +72,11 @@ else
 fi
 
 # 可选：立即重载网络配置，无需等待重启生效
-# echo "正在重载网络配置..."
-# /etc/init.d/network reload
+echo "正在重载网络配置..."
+/etc/init.d/network reload
+
+# 验证修改
+echo "验证新MAC地址:"
+ifconfig $BRIDGE_IFACE | grep -i ether
 
 exit 0
