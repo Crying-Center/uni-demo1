@@ -1,28 +1,48 @@
 #!/bin/sh
 
 # 脚本路径：/usr/bin/change_lan_mac.sh
-# 功能：自动识别LAN接口并修改其MAC地址
+# 功能：准确识别LAN接口并修改其MAC地址
 
-# 方法1：使用Ubus查询网络状态，找到up且protocol为static或dhcp的接口（通常是LAN）
-# 更现代且准确的方法
+# 方法1：通过UCI配置查找真正的LAN接口
+# 查找配置了桥接（bridge）或明确标记为内网的接口
 find_lan_interface() {
-    ubus call network.interface dump | jsonfilter -e '@.interface[@.up=true && (@.protocol="static" || @.proto="dhcp")].interface'
+    # 尝试查找配置了bridge设备的接口
+    LAN_IFACE=$(uci show network | grep -E "\.device=.*br-lan" | cut -d '.' -f 2)
+    
+    if [ -z "$LAN_IFACE" ]; then
+        # 尝试查找名为lan的接口
+        LAN_IFACE=$(uci show network | grep -E "lan[0-9]*$" | cut -d '.' -f 2 | head -n 1)
+    fi
+    
+    echo "$LAN_IFACE"
 }
 
-# 方法2（备用）：通过UCI查找配置了'option type bridge'的接口（传统Bridge LAN）
-find_bridge_interface() {
-    uci show network | grep -E "=interface" | grep -E "lan[0-9]*$" | cut -d '.' -f 2 | head -n 1
-    # 如果上述不行，可以尝试查找配置了bridge的接口
-    # uci show network | grep -E "\.type=bridge" | cut -d '.' -f 2
+# 方法2：通过IP地址范围判断（更可靠的方法）
+# LAN通常使用私有IP地址段
+find_lan_by_ip() {
+    # 获取所有启动的接口
+    for iface in $(ubus call network.interface dump | jsonfilter -e '@.interface[@.up=true].interface'); do
+        # 获取接口的IP地址
+        ip_addr=$(uci get network.$iface.ipaddr 2>/dev/null)
+        
+        # 检查是否是私有IP地址（LAN典型特征）
+        if echo "$ip_addr" | grep -qE "^(192\.168|10\.|172\.(1[6-9]|2[0-9]|3[0-1]))"; then
+            echo "$iface"
+            return 0
+        fi
+    done
+    
+    # 如果没有找到，返回空
+    echo ""
 }
 
-# 优先使用方法1识别LAN接口
-LAN_IFACE=$(find_lan_interface)
+# 优先使用IP地址方法识别LAN接口
+LAN_IFACE=$(find_lan_by_ip)
 
-# 如果方法1失败，则尝试方法2
+# 如果IP方法失败，则尝试配置方法
 if [ -z "$LAN_IFACE" ]; then
-    echo "方法1未找到LAN接口，尝试方法2..."
-    LAN_IFACE=$(find_bridge_interface)
+    echo "IP方法未找到LAN接口，尝试配置方法..."
+    LAN_IFACE=$(find_lan_interface)
 fi
 
 # 如果依然未找到，使用一个默认值（通常是lan）并记录警告
@@ -39,7 +59,7 @@ NEW_MAC="02:$(dd bs=1 count=5 if=/dev/random 2>/dev/null | hexdump -v -e '/1 ":%
 # OLD_MAC=$(uci get network.$LAN_IFACE.macaddr 2>/dev/null)
 # NEW_MAC=$(echo $OLD_MAC | awk -F: -v OFS=: '{$NF=sprintf("%02X", (("0x"$NF)+1) % 256); print}')
 
-echo "为新MAC地址: $NEW_MAC"
+echo "新MAC地址: $NEW_MAC"
 
 # 使用UCI设置新的MAC地址
 if uci get network.$LAN_IFACE >/dev/null 2>&1; then
