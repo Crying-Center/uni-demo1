@@ -23,18 +23,12 @@ show_menu() {
 
 # 检查Xray是否已安装
 check_xray_installed() {
-    if opkg list-installed | grep -q "xray-core"; then
+    # 使用更可靠的方法检查Xray是否已安装
+    if opkg list-installed | grep -E "xray-core|Xray" >/dev/null 2>&1; then
         echo "检测到 Xray 已安装，跳过安装。"
         return 0
-    else
-        return 1
-    fi
-}
-
-# 检查Passwall2是否已安装
-check_pw2_installed() {
-    if opkg list-installed | grep -q "luci-app-passwall2"; then
-        echo "检测到 Passwall2 已安装，跳过安装。"
+    elif which xray >/dev/null 2>&1; then
+        echo "检测到 Xray 已安装，跳过安装。"
         return 0
     else
         return 1
@@ -71,11 +65,6 @@ install_xray() {
 
 # 安装Passwall2函数
 install_pw2() {
-    # 检查是否已安装
-    if check_pw2_installed; then
-        return 0
-    fi
-    
     echo "开始安装 Passwall2..."
     echo "下载 Passwall2 安装包..."
     wget -O pw2-install.tar.gz "https://ghfast.top/https://github.com/Crying-Center/uni-demo1/raw/refs/heads/master/pw2-install-mipsel_24kc.tar.gz"
