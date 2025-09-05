@@ -21,8 +21,33 @@ show_menu() {
     printf "请输入选择 [1-4]: "
 }
 
+# 检查Xray是否已安装
+check_xray_installed() {
+    if opkg list-installed | grep -q "xray-core"; then
+        echo "检测到 Xray 已安装，跳过安装。"
+        return 0
+    else
+        return 1
+    fi
+}
+
+# 检查Passwall2是否已安装
+check_pw2_installed() {
+    if opkg list-installed | grep -q "luci-app-passwall2"; then
+        echo "检测到 Passwall2 已安装，跳过安装。"
+        return 0
+    else
+        return 1
+    fi
+}
+
 # 安装Xray函数
 install_xray() {
+    # 检查是否已安装
+    if check_xray_installed; then
+        return 0
+    fi
+    
     echo "开始安装 Xray..."
     echo "下载 Xray 安装包..."
     wget -O xray-core.ipk "https://ghfast.top/https://github.com/Crying-Center/uni-demo1/blob/master/xray-core_25.1.30-r1_mipsel_24kc.ipk"
@@ -46,6 +71,11 @@ install_xray() {
 
 # 安装Passwall2函数
 install_pw2() {
+    # 检查是否已安装
+    if check_pw2_installed; then
+        return 0
+    fi
+    
     echo "开始安装 Passwall2..."
     echo "下载 Passwall2 安装包..."
     wget -O pw2-install.tar.gz "https://ghfast.top/https://github.com/Crying-Center/uni-demo1/raw/refs/heads/master/pw2-install-mipsel_24kc.tar.gz"
