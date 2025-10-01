@@ -13,7 +13,7 @@ NC='\033[0m' # No Color
 
 # 默认配置
 DEFAULT_NODE_ID="fJeo25Md"
-DEFAULT_NODE_REMARKS="Eugene-SG"
+DEFAULT_NODE_REMARKS="Eugene-UK"
 DEFAULT_2G_SSID="Eugene工作室"
 DEFAULT_5G_SSID="Eugene工作室-5G"
 DEFAULT_PASSWORD="666666666"
@@ -168,17 +168,17 @@ setup_passwall_node() {
         uci set passwall.$DEFAULT_NODE_ID.remarks="$DEFAULT_NODE_REMARKS"
         uci set passwall.$DEFAULT_NODE_ID.type='sing-box'
         uci set passwall.$DEFAULT_NODE_ID.protocol='vless'
-        uci set passwall.$DEFAULT_NODE_ID.address='103.195.190.172'
-        uci set passwall.$DEFAULT_NODE_ID.port='58841'
-        uci set passwall.$DEFAULT_NODE_ID.uuid='c0a37248-0b0d-4ecb-beeb-76ff9c8f5eac'
+        uci set passwall.$DEFAULT_NODE_ID.address='206.245.238.110'
+        uci set passwall.$DEFAULT_NODE_ID.port='45604'
+        uci set passwall.$DEFAULT_NODE_ID.uuid='78989a22-52e1-4101-a1cc-e539c004d57c'
         uci set passwall.$DEFAULT_NODE_ID.tls='1'
         uci set passwall.$DEFAULT_NODE_ID.alpn='default'
         uci set passwall.$DEFAULT_NODE_ID.tls_serverName='tesla.com'
         uci set passwall.$DEFAULT_NODE_ID.utls='1'
         uci set passwall.$DEFAULT_NODE_ID.fingerprint='chrome'
         uci set passwall.$DEFAULT_NODE_ID.reality='1'
-        uci set passwall.$DEFAULT_NODE_ID.reality_publicKey='zQ0aE1tVll0KIsoDUCbTE6kpqg4coqvp1blzYUlPbCQ'
-        uci set passwall.$DEFAULT_NODE_ID.reality_shortId='606beee75848ef0a'
+        uci set passwall.$DEFAULT_NODE_ID.reality_publicKey='Ksvm7_unQR4nijHHOYBKlzzTRTUPPKFaUrMdm80NLBo'
+        uci set passwall.$DEFAULT_NODE_ID.reality_shortId='ea44e653'
         uci set passwall.$DEFAULT_NODE_ID.transport='tcp'
         uci set passwall.$DEFAULT_NODE_ID.mux='0'
         
