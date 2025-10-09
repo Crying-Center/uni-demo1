@@ -168,7 +168,7 @@ setup_passwall_node() {
         uci set passwall.$DEFAULT_NODE_ID.remarks="$DEFAULT_NODE_REMARKS"
         uci set passwall.$DEFAULT_NODE_ID.type='sing-box'
         uci set passwall.$DEFAULT_NODE_ID.protocol='vless'
-        uci set passwall.$DEFAULT_NODE_ID.address='206.245.238.110'
+        uci set passwall.$DEFAULT_NODE_ID.address='uk.tiktokjiasu.top'
         uci set passwall.$DEFAULT_NODE_ID.port='45604'
         uci set passwall.$DEFAULT_NODE_ID.uuid='78989a22-52e1-4101-a1cc-e539c004d57c'
         uci set passwall.$DEFAULT_NODE_ID.tls='1'
